@@ -2,10 +2,17 @@ sudo: false
 language: node_js
 node_js:
   - '10'
+addons:
+  ssh_known_hosts: 106.13.98.159
 before_install:
   - npm i npminstall -g
 install:
   - npminstall
 script:
   - npm run test
-  - echo $SSH_PRIVATE_KEY
+before_deploy:
+  - echo $SSH_PRIVATE_KEY > ./deploy_rsa
+  - chmod 600 ./deploy_rsa
+  - ssh-add ./deploy_rsa
+deploy:
+  - ssh root@106.13.98.159 "export PATH=/root/.nvm/versions/node/v10.16.3/bin:/usr/bin:/bin;cd /root/frontend-class-test;git pull;yarn;npm run build"
