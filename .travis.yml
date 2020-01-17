@@ -15,6 +15,8 @@ before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 ./deploy_rsa
   - ssh-add -k ./deploy_rsa
+  - expect "Enter passphrase for ./deploy_rsa:"
+  - send "\n";
 deploy:
   provider: script
   script: bash ./deploy.sh
