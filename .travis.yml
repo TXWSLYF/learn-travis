@@ -11,7 +11,6 @@ install:
 script:
   - npm run test
 before_deploy:
-  - echo $SSH_PRIVATE_KEY > ./deploy_rsa
   - openssl rsa -in ./deploy_rsa -out ./deploy_rsa_new
   - eval "$(ssh-agent -s)"
   - chmod 600 ./deploy_rsa_new
