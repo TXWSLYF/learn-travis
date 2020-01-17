@@ -15,4 +15,7 @@ before_deploy:
   - chmod 600 ./deploy_rsa
   - ssh-add ./deploy_rsa
 deploy:
-  - ssh root@106.13.98.159 "export PATH=/root/.nvm/versions/node/v10.16.3/bin:/usr/bin:/bin;cd /root/frontend-class-test;git pull;yarn;npm run build"
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: master
