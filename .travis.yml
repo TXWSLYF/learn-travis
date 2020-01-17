@@ -8,3 +8,4 @@ install:
   - npminstall
 script:
   - npm run test
+  - echo $SSH_PRIVATE_KEY
