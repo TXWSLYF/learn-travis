@@ -12,11 +12,10 @@ script:
   - npm run test
 before_deploy:
   - echo $SSH_PRIVATE_KEY > ./deploy_rsa
+  - openssl rsa -in ./deploy_rsa -out ./deploy_rsa_new
   - eval "$(ssh-agent -s)"
-  - chmod 600 ./deploy_rsa
-  - ssh-add -k ./deploy_rsa
-  - expect "Enter passphrase for ./deploy_rsa:"
-  - send "\n";
+  - chmod 600 ./deploy_rsa_new
+  - ssh-add ./deploy_rsa_new
 deploy:
   provider: script
   script: bash ./deploy.sh
