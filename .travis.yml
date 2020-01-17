@@ -14,7 +14,7 @@ before_deploy:
   - echo $SSH_PRIVATE_KEY > ./deploy_rsa
   - eval "$(ssh-agent -s)"
   - chmod 600 ./deploy_rsa
-  - ssh-add ./deploy_rsa
+  - ssh-add -K ./deploy_rsa
 deploy:
   provider: script
   script: bash ./deploy.sh
